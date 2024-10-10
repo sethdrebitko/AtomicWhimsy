@@ -49,23 +49,6 @@ nav ul li a {
     font-weight: 700;
 }
 
-/* Hero Section */
-.hero {
-    text-align: center;
-    padding: 100px 20px;
-    background: linear-gradient(135deg, #00A9A5, #FF6F61); /* Vibrant teal to bright orange */
-    color: #fff;
-}
-
-.hero h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 1.5em;
-}
-
 /* About Section */
 #about {
     padding: 60px 20px;
