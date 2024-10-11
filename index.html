@@ -1,56 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Atomic Whimsy Blog</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+/* Explosion Container */
+.explosion {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  background-color: #000; /* Background color to enhance visibility */
+  overflow: hidden;
+  margin: 50px auto; /* Center the explosion on the page */
+}
+
+/* Fireball at the base */
+.fireball {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at center, rgba(255, 140, 0, 1), transparent);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: fireball 2s forwards;
+}
+
+@keyframes fireball {
+  0% {
+    width: 20px;
+    height: 20px;
+    opacity: 1;
+  }
+  50% {
+    width: 150px;
+    height: 150px;
+    opacity: 0.8;
+  }
+  100% {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+  }
+}
+
+/* Rising mushroom cloud */
+.mushroom-cloud {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  width: 50px;
+  height: 30px;
+  background: radial-gradient(circle at bottom center, rgba(139, 69, 19, 1), transparent);
+  transform: translate(-50%, 50%);
+  animation: mushroomCloud 3s forwards;
+  animation-delay: 1s;
+}
+
+@keyframes mushroomCloud {
+  0% {
+    width: 50px;
+    height: 30px;
+    opacity: 1;
+    transform: translate(-50%, 50%) scaleY(1);
+  }
+  100% {
+    width: 300px;
+    height: 200px;
+    opacity: 0;
+    transform: translate(-50%, -150%) scaleY(2);
+  }
+}
+
+/* Smoke trails */
+.smoke {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, rgba(105, 105, 105, 0.8), transparent);
+  border-radius: 50%;
+  transform: translate(-50%, 50%);
+  animation: smoke 4s forwards;
+  animation-delay: 1.5s;
+}
+
+@keyframes smoke {
+  0% {
+    width: 20px;
+    height: 20px;
+    opacity: 0.5;
+    transform: translate(-50%, 50%) scale(1);
+  }
+  100% {
+    width: 250px;
+    height: 250px;
+    opacity: 0;
+    transform: translate(-50%, -200%) scale(1.5);
+  }
+}
+</style>
+<title>Mushroom Cloud Explosion Animation</title>
 </head>
 <body>
-    <div class="particle-bg"></div>
-    <header>
-        <nav>
-            <div class="logo">Atomic Whimsy</div>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#posts">Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section id="about">
-            <h2>Our Story</h2>
-            <p>At Atomic Whimsy, we blend scientific curiosity with creative design...</p>
-            <!-- Engaging graphics would be here -->
-        </section>
-        <section id="posts">
-            <h2>Latest Posts</h2>
-            <div class="posts">
-                <!-- Repeat this block for each post -->
-                <article>
-                    <h3>Discovering the Joy of Atoms</h3>
-                    <p>A whimsical journey into the building blocks of matter...</p>
-                    <a href="#">Read More</a>
-                </article>
-                <!-- ... -->
-            </div>
-        </section>
-    </main>
-    <section id="contact">
-        <h2>Get in Touch</h2>
-        <form>
-            <input type="text" placeholder="Your Name">
-            <input type="email" placeholder="Your Email">
-            <textarea placeholder="Your Message"></textarea>
-            <button type="submit">Send Message</button>
-        </form>
-    </section>
-    <footer>
-        <p>&copy; 2024 Atomic Whimsy</p>
-    </footer>
-    <!-- JavaScript for interactivity -->
-    <script src="script.js"></script>
+
+<div class="explosion">
+  <div class="fireball"></div>
+  <div class="mushroom-cloud"></div>
+  <div class="smoke"></div>
+</div>
+
 </body>
 </html>
