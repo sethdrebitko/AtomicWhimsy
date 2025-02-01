@@ -1,116 +1,431 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-/* Explosion Container */
-.explosion {
-  position: relative;
-  width: 300px;
-  height: 400px;
-  background-color: #000; /* Background color to enhance visibility */
-  overflow: hidden;
-  margin: 50px auto; /* Center the explosion on the page */
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atomic Whimsy - Where Innovation Meets Imagination</title>
+  <!-- Google Fonts for a clean & playful vibe -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* Reset and basic styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f0f8ff;
+      color: #333;
+      line-height: 1.6;
+    }
 
-/* Fireball at the base */
-.fireball {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 20px;
-  height: 20px;
-  background: radial-gradient(circle at center, rgba(255, 140, 0, 1), transparent);
-  border-radius: 50%;
-  transform: translateX(-50%);
-  animation: fireball 2s forwards;
-}
+    /* Sticky Navigation Bar */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+    }
+    nav .logo {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.8rem;
+      color: #ff6f61;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+    }
+    nav ul li {
+      margin-left: 2rem;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #ff6f61;
+    }
 
-@keyframes fireball {
-  0% {
-    width: 20px;
-    height: 20px;
-    opacity: 1;
-  }
-  50% {
-    width: 150px;
-    height: 150px;
-    opacity: 0.8;
-  }
-  100% {
-    width: 300px;
-    height: 300px;
-    opacity: 0;
-  }
-}
+    /* Hero Section */
+    #hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(135deg, #74ebd5, #acb6e5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 80px; /* Adjust for fixed nav */
+    }
+    /* Canvas for interactive background */
+    #hero canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      max-width: 800px;
+      padding: 20px;
+    }
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      font-family: 'Pacifico', cursive;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .hero-content button {
+      background: #ff6f61;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      color: #fff;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .hero-content button:hover {
+      transform: scale(1.05);
+    }
 
-/* Rising mushroom cloud */
-.mushroom-cloud {
-  position: absolute;
-  bottom: 50%;
-  left: 50%;
-  width: 50px;
-  height: 30px;
-  background: radial-gradient(circle at bottom center, rgba(139, 69, 19, 1), transparent);
-  transform: translate(-50%, 50%);
-  animation: mushroomCloud 3s forwards;
-  animation-delay: 1s;
-}
+    /* Section styling */
+    section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-@keyframes mushroomCloud {
-  0% {
-    width: 50px;
-    height: 30px;
-    opacity: 1;
-    transform: translate(-50%, 50%) scaleY(1);
-  }
-  100% {
-    width: 300px;
-    height: 200px;
-    opacity: 0;
-    transform: translate(-50%, -150%) scaleY(2);
-  }
-}
+    /* About Section */
+    #about {
+      background: #fff;
+    }
+    #about h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #ff6f61;
+    }
+    #about .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .timeline-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .timeline-item::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      background: #ff6f61;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
 
-/* Smoke trails */
-.smoke {
-  position: absolute;
-  bottom: 50%;
-  left: 50%;
-  width: 20px;
-  height: 20px;
-  background: radial-gradient(circle, rgba(105, 105, 105, 0.8), transparent);
-  border-radius: 50%;
-  transform: translate(-50%, 50%);
-  animation: smoke 4s forwards;
-  animation-delay: 1.5s;
-}
+    /* Portfolio Section */
+    #portfolio {
+      background: #f9f9f9;
+    }
+    #portfolio h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #ff6f61;
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .portfolio-item {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    .portfolio-item:hover {
+      transform: translateY(-5px);
+    }
+    .portfolio-item img {
+      width: 100%;
+      display: block;
+    }
+    .portfolio-item .content {
+      padding: 1rem;
+    }
+    .portfolio-item .content h3 {
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    .portfolio-item .content p {
+      font-size: 0.9rem;
+      color: #666;
+    }
 
-@keyframes smoke {
-  0% {
-    width: 20px;
-    height: 20px;
-    opacity: 0.5;
-    transform: translate(-50%, 50%) scale(1);
-  }
-  100% {
-    width: 250px;
-    height: 250px;
-    opacity: 0;
-    transform: translate(-50%, -200%) scale(1.5);
-  }
-}
-</style>
-<title>Mushroom Cloud Explosion Animation</title>
+    /* Demo Section */
+    #demo {
+      background: #fff;
+      text-align: center;
+    }
+    #demo h2 {
+      color: #ff6f61;
+      margin-bottom: 2rem;
+    }
+    #demo .demo-container {
+      max-width: 800px;
+      margin: 0 auto;
+      border: 2px dashed #ff6f61;
+      padding: 2rem;
+      border-radius: 10px;
+    }
+
+    /* Contact Section */
+    #contact {
+      background: #f9f9f9;
+      text-align: center;
+    }
+    #contact h2 {
+      margin-bottom: 1rem;
+      color: #ff6f61;
+    }
+    #contact a {
+      color: #ff6f61;
+      text-decoration: none;
+    }
+
+    /* Footer */
+    footer {
+      background: #333;
+      color: #fff;
+      padding: 2rem;
+      text-align: center;
+    }
+    footer a {
+      color: #ff6f61;
+      text-decoration: none;
+    }
+    footer .socials {
+      margin: 1rem 0;
+    }
+    footer .socials a {
+      margin: 0 0.5rem;
+      font-size: 1.2rem;
+    }
+  </style>
 </head>
 <body>
+  <!-- Navigation -->
+  <header>
+    <nav>
+      <div class="logo">Atomic Whimsy</div>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#demo">Demos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<div class="explosion">
-  <div class="fireball"></div>
-  <div class="mushroom-cloud"></div>
-  <div class="smoke"></div>
-</div>
+  <!-- Hero Section -->
+  <section id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-content">
+      <h1>Atomic Whimsy</h1>
+      <p>Where Innovation Meets Imagination</p>
+      <button onclick="scrollToSection('portfolio')">Enter the Whimsy</button>
+    </div>
+  </section>
 
+  <!-- About Section -->
+  <section id="about">
+    <h2>Our Story</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div><strong>2010</strong></div>
+        <div>Founded with a dream to merge creativity and technology.</div>
+      </div>
+      <div class="timeline-item">
+        <div><strong>2012</strong></div>
+        <div>Released our first indie game, inspiring countless adventures.</div>
+      </div>
+      <div class="timeline-item">
+        <div><strong>2015</strong></div>
+        <div>Expanded into multimedia and interactive experiences.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio">
+    <h2>Our Creations</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item">
+        <img src="https://via.placeholder.com/400x200.png?text=Game+1" alt="Game 1" />
+        <div class="content">
+          <h3>Game One</h3>
+          <p>A playful adventure game that challenges your imagination.</p>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://via.placeholder.com/400x200.png?text=Game+2" alt="Game 2" />
+        <div class="content">
+          <h3>Game Two</h3>
+          <p>An interactive journey through surreal digital landscapes.</p>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://via.placeholder.com/400x200.png?text=App+1" alt="App 1" />
+        <div class="content">
+          <h3>App One</h3>
+          <p>A creative tool blending art and technology seamlessly.</p>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://via.placeholder.com/400x200.png?text=Media+Project" alt="Media Project" />
+        <div class="content">
+          <h3>Media Project</h3>
+          <p>An immersive multimedia experience that captivates the senses.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Section -->
+  <section id="demo">
+    <h2>Try a Demo</h2>
+    <div class="demo-container">
+      <p>Experience a snippet of our interactive projects. (Demo placeholder)</p>
+      <!-- Embed interactive demos or video trailers as needed -->
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Get in Touch</h2>
+    <p>Contact us at <a href="mailto:hello@atomicwhimsy.com">hello@atomicwhimsy.com</a></p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Atomic Whimsy. All rights reserved.</p>
+    <div class="socials">
+      <a href="#" title="Twitter">Twitter</a>
+      <a href="#" title="Instagram">Instagram</a>
+      <a href="#" title="Facebook">Facebook</a>
+    </div>
+  </footer>
+
+  <!-- JavaScript for interactive elements -->
+  <script>
+    // Smooth scroll for navigation buttons
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Interactive background animation in the Hero Section
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const particleCount = 100;
+    let mouse = { x: null, y: null };
+
+    // Adjust canvas size
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Particle constructor
+    function Particle(x, y, size, speedX, speedY, color) {
+      this.x = x;
+      this.y = y;
+      this.size = size;
+      this.speedX = speedX;
+      this.speedY = speedY;
+      this.color = color;
+    }
+    Particle.prototype.update = function () {
+      this.x += this.speedX;
+      this.y += this.speedY;
+
+      // Reverse direction on hitting edges
+      if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+
+      this.draw();
+    };
+    Particle.prototype.draw = function () {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    };
+
+    // Initialize particles
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        let size = Math.random() * 2 + 1;
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        let speedX = (Math.random() - 0.5) * 1;
+        let speedY = (Math.random() - 0.5) * 1;
+        const colors = [
+          'rgba(255,111,97,0.8)',
+          'rgba(116,235,213,0.8)',
+          'rgba(172,182,229,0.8)'
+        ];
+        let color = colors[Math.floor(Math.random() * colors.length)];
+        particles.push(new Particle(x, y, size, speedX, speedY, color));
+      }
+    }
+    initParticles();
+
+    // Animation loop
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(particle => particle.update());
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // (Optional) Update mouse coordinates for future interactions
+    window.addEventListener('mousemove', function (event) {
+      mouse.x = event.x;
+      mouse.y = event.y;
+    });
+  </script>
 </body>
 </html>
